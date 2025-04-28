@@ -4,7 +4,7 @@ let graphics;
 function setup() {
   // 設定畫布為視窗大小，背景顏色為 #ffe5ec
   createCanvas(windowWidth, windowHeight);
-  background('#ffe5ec');
+  background('#1e6091');
 
   // 啟用攝影機，設定寬高為視窗大小的 80%
   capture = createCapture(VIDEO);
