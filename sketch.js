@@ -1,5 +1,5 @@
 let capture;
-let overlayGraphics;
+let graphics;
 
 function setup() {
   // 設定畫布為視窗大小，背景顏色為 #ffe5ec
@@ -12,8 +12,8 @@ function setup() {
   capture.hide(); // 隱藏原始的 HTML 視訊元素
 
   // 建立與攝影機畫面大小相同的 Graphics
-  overlayGraphics = createGraphics(capture.width, capture.height);
-  overlayGraphics.clear(); // 確保背景透明
+  graphics = createGraphics(capture.width, capture.height);
+  graphics.clear(); // 確保背景透明
 }
 
 function draw() {
@@ -28,16 +28,22 @@ function draw() {
   // 將攝影機影像繪製到畫布中央
   image(capture, (width - capture.width) / 2, (height - capture.height) / 2, capture.width, capture.height);
 
-  // 將 overlayGraphics 繪製到攝影機影像上方
-  image(overlayGraphics, (width - capture.width) / 2, (height - capture.height) / 2);
+  // 將 graphics 繪製到攝影機影像上方
+  image(graphics, (width - capture.width) / 2, (height - capture.height) / 2);
 
   pop(); // 恢復畫布狀態
 
-  // 在 overlayGraphics 上繪製內容
-  overlayGraphics.clear(); // 清除之前的內容
-  overlayGraphics.fill(255, 0, 0, 150); // 半透明紅色
-  overlayGraphics.noStroke();
-  overlayGraphics.ellipse(overlayGraphics.width / 2, overlayGraphics.height / 2, 100, 100); // 繪製紅色圓形
+  // 在 graphics 上繪製內容
+  graphics.background(0); // 設定背景為黑色
+  for (let x = 0; x < graphics.width; x += 20) {
+    for (let y = 0; y < graphics.height; y += 20) {
+      // 從 capture 中取得對應位置的顏色
+      let col = capture.get(x, y);
+      graphics.fill(col); // 設定圓的顏色
+      graphics.noStroke();
+      graphics.ellipse(x, y, 15, 15); // 繪製圓形
+    }
+  }
 }
 
 function windowResized() {
@@ -46,6 +52,6 @@ function windowResized() {
   capture.size(windowWidth * 0.8, windowHeight * 0.8);
 
   // 重新建立與攝影機畫面大小相同的 Graphics
-  overlayGraphics = createGraphics(capture.width, capture.height);
-  overlayGraphics.clear();
+  graphics = createGraphics(capture.width, capture.height);
+  graphics.clear();
 }
