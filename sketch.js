@@ -39,7 +39,8 @@ function draw() {
     for (let y = 0; y < graphics.height; y += 20) {
       // 從 capture 中取得對應位置的顏色
       let col = capture.get(x, y);
-      graphics.fill(col); // 設定圓的顏色
+      let gray = (red(col) + green(col) + blue(col)) / 3; // 計算灰階值
+      graphics.fill(gray); // 設定圓的顏色為灰階
       graphics.noStroke();
       graphics.ellipse(x, y, 15, 15); // 繪製圓形
     }
