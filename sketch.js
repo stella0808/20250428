@@ -35,10 +35,8 @@ function draw() {
 
   // 在 overlayGraphics 上繪製內容
   overlayGraphics.clear(); // 清除之前的內容
-  //overlayGraphics.fill(255, 0, 0, 150); // 半透明紅色
+  overlayGraphics.fill(255, 0, 0, 150); // 半透明紅色
   overlayGraphics.noStroke();
-  //overlayGraphics.fill(255, 0, 0); // 紅色
-    overlayGraphics.ellipseMode(CENTER); // 設定圓形繪製模式為中心
   overlayGraphics.ellipse(overlayGraphics.width / 2, overlayGraphics.height / 2, 100, 100); // 繪製紅色圓形
 }
 
