@@ -18,7 +18,7 @@ function setup() {
 
 function draw() {
   // 設定背景顏色
-  background('#ffe5ec');
+  background('#1e6091');
 
   // 翻轉畫布以修正左右顛倒
   push(); // 儲存當前畫布狀態
