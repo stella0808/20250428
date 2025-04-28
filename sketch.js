@@ -39,12 +39,32 @@ function draw() {
     for (let y = 0; y < graphics.height; y += 20) {
       // 從 capture 中取得對應位置的顏色
       let col = capture.get(x, y);
-      let gray = (red(col) + green(col) + blue(col)) / 3; // 計算灰階值
-      graphics.fill(gray); // 設定圓的顏色為灰階
+      let g = green(col); // 取得 G 值
+      graphics.fill(0, g, 100); // 設定方框顏色 (R=0, G=G 值, B=100)
       graphics.noStroke();
-      graphics.ellipse(x, y, 15, 15); // 繪製圓形
+      graphics.rect(x - 9, y - 9, 18, 18); // 繪製方框 (中心對齊)
+
+      // 繪製黑色星星
+      graphics.fill(0); // 星星顏色為黑色
+      drawStar(graphics, x, y, 2.5, 5, 5); // 在方框中心繪製星星
     }
   }
+}
+
+function drawStar(pg, x, y, radius1, radius2, npoints) {
+  // 繪製星星的輔助函式
+  let angle = TWO_PI / npoints;
+  let halfAngle = angle / 2.0;
+  pg.beginShape();
+  for (let a = 0; a < TWO_PI; a += angle) {
+    let sx = x + cos(a) * radius2;
+    let sy = y + sin(a) * radius2;
+    pg.vertex(sx, sy);
+    sx = x + cos(a + halfAngle) * radius1;
+    sy = y + sin(a + halfAngle) * radius1;
+    pg.vertex(sx, sy);
+  }
+  pg.endShape(CLOSE);
 }
 
 function windowResized() {
@@ -54,5 +74,7 @@ function windowResized() {
 
   // 重新建立與攝影機畫面大小相同的 Graphics
   graphics = createGraphics(capture.width, capture.height);
-  graphics.clear();
-}
+
+
+}  graphics.clear();  graphics.clear();
+
